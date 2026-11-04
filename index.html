@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CUE MOTION</title>
+<style>
+body {
+  background:#101820;
+  color:white;
+  font-family:sans-serif;
+  text-align:center;
+  padding:20px;
+}
+button {
+  padding:16px;
+  margin:10px;
+  border:0;
+  border-radius:10px;
+  background:#19b6a5;
+  font-size:18px;
+}
+video {width:100%;max-width:600px}
+</style>
+</head>
+<body>
+<h1>CUE MOTION</h1>
+<p>カメラ動作テスト</p>
+<button onclick="startCamera()">カメラ起動</button>
+<video id="camera" autoplay muted playsinline></video>
+<p id="status">起動待機中</p>
+<script>
+async function startCamera(){
+  try {
+    const stream=await navigator.mediaDevices.getUserMedia({
+      video:{facingMode:"environment"},
+      audio:false
+    });
+    document.getElementById("camera").srcObject=stream;
+    document.getElementById("status").textContent="カメラ接続成功";
+  } catch(e) {
+    document.getElementById("status").textContent=
+      "カメラエラー: "+e.name+" / "+e.message;
+  }
+}
+</script>
+</body>
+</html>
+  
